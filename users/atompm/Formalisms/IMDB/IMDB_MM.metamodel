@@ -1,0 +1,505 @@
+{
+	"types": {
+		"Movie": [
+			{
+				"name": "title",
+				"type": "string",
+				"default": ""
+			},
+			{
+				"name": "rating",
+				"type": "double",
+				"default": 0
+			},
+			{
+				"name": "year",
+				"type": "int",
+				"default": 0
+			},
+			{
+				"name": "movieType",
+				"type": "string",
+				"default": ""
+			},
+			{
+				"name": "poster",
+				"type": "string",
+				"default": "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg"
+			}
+		],
+		"Person": [
+			{
+				"name": "name",
+				"type": "string",
+				"default": ""
+			}
+		],
+		"person": [],
+		"movies": [],
+		"Actor": [
+			{
+				"name": "name",
+				"type": "string",
+				"default": ""
+			}
+		],
+		"Actress": [
+			{
+				"name": "name",
+				"type": "string",
+				"default": ""
+			}
+		],
+		"Group": [
+			{
+				"name": "avgRating",
+				"type": "double",
+				"default": 0
+			}
+		],
+		"commonMovies": [],
+		"Couple": [
+			{
+				"name": "avgRating",
+				"type": "double",
+				"default": 0
+			}
+		],
+		"first": [],
+		"second": [],
+		"Clique": [
+			{
+				"name": "avgRating",
+				"type": "double",
+				"default": 0
+			}
+		],
+		"persons": []
+	},
+	"constraints": [
+		{
+			"name": "noAbstractInstances",
+			"event": "pre-create",
+			"code": "false",
+			"targetType": "Person"
+		},
+		{
+			"name": "noAbstractInstances",
+			"event": "pre-create",
+			"code": "false",
+			"targetType": "Group"
+		}
+	],
+	"actions": [],
+	"cardinalities": {
+		"Movie": [
+			{
+				"dir": "out",
+				"type": "person",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "movies",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "commonMovies",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"Person": [
+			{
+				"dir": "in",
+				"type": "person",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "out",
+				"type": "movies",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "first",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "second",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "persons",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"person": [
+			{
+				"dir": "in",
+				"type": "Movie",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Person",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Actor",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Actress",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"movies": [
+			{
+				"dir": "in",
+				"type": "Person",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Movie",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "in",
+				"type": "Actor",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "in",
+				"type": "Actress",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"Actor": [
+			{
+				"dir": "in",
+				"type": "person",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "out",
+				"type": "movies",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "first",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "second",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "persons",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"Actress": [
+			{
+				"dir": "in",
+				"type": "person",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "out",
+				"type": "movies",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "first",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "second",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "persons",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"Group": [
+			{
+				"dir": "out",
+				"type": "commonMovies",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"commonMovies": [
+			{
+				"dir": "in",
+				"type": "Group",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Movie",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "in",
+				"type": "Couple",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "in",
+				"type": "Clique",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"Couple": [
+			{
+				"dir": "out",
+				"type": "first",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "out",
+				"type": "second",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "out",
+				"type": "commonMovies",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"first": [
+			{
+				"dir": "in",
+				"type": "Couple",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Person",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Actor",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Actress",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"second": [
+			{
+				"dir": "in",
+				"type": "Couple",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Person",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Actor",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Actress",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"Clique": [
+			{
+				"dir": "out",
+				"type": "persons",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "out",
+				"type": "commonMovies",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"persons": [
+			{
+				"dir": "in",
+				"type": "Clique",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Person",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Actor",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Actress",
+				"min": "0",
+				"max": "1"
+			}
+		]
+	},
+	"legalConnections": {
+		"Movie": {
+			"Person": [
+				"person"
+			],
+			"Actor": [
+				"person"
+			],
+			"Actress": [
+				"person"
+			]
+		},
+		"Person": {
+			"Movie": [
+				"movies"
+			]
+		},
+		"Actor": {
+			"Movie": [
+				"movies"
+			]
+		},
+		"Actress": {
+			"Movie": [
+				"movies"
+			]
+		},
+		"Group": {
+			"Movie": [
+				"commonMovies"
+			]
+		},
+		"Couple": {
+			"Person": [
+				"first",
+				"second"
+			],
+			"Actor": [
+				"first",
+				"second"
+			],
+			"Actress": [
+				"first",
+				"second"
+			],
+			"Movie": [
+				"commonMovies"
+			]
+		},
+		"Clique": {
+			"Person": [
+				"persons"
+			],
+			"Actor": [
+				"persons"
+			],
+			"Actress": [
+				"persons"
+			],
+			"Movie": [
+				"commonMovies"
+			]
+		}
+	},
+	"connectorTypes": {
+		"person": "visual",
+		"movies": "visual",
+		"commonMovies": "visual",
+		"first": "visual",
+		"second": "visual",
+		"persons": "visual"
+	},
+	"types2parentTypes": {
+		"Movie": [],
+		"Person": [],
+		"person": [],
+		"movies": [],
+		"Actor": [
+			"Person"
+		],
+		"Actress": [
+			"Person"
+		],
+		"Group": [],
+		"commonMovies": [],
+		"Couple": [
+			"Group"
+		],
+		"first": [],
+		"second": [],
+		"Clique": [
+			"Group"
+		],
+		"persons": []
+	}
+}

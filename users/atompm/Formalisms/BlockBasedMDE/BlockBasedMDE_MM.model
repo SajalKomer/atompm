@@ -5626,9 +5626,7 @@
 		},
 		"edges": [],
 		"metamodels": [
-			"/Formalisms/__LanguageSyntax__/SimpleClassDiagram/SimpleClassDiagram.umlIcons",
-			"/Formalisms/Maze_Wenjun/Maze_wenjun.defaultIcons.pattern",
-			"/Formalisms/Maze/Maze.defaultIcons"
+			"/Formalisms/__LanguageSyntax__/SimpleClassDiagram/SimpleClassDiagram.umlIcons"
 		]
 	},
 	"asm": {
@@ -6242,9 +6240,7 @@
 			}
 		],
 		"metamodels": [
-			"/Formalisms/__LanguageSyntax__/SimpleClassDiagram/SimpleClassDiagram",
-			"/Formalisms/Maze_Wenjun/Maze_wenjun.pattern",
-			"/Formalisms/Maze/Maze"
+			"/Formalisms/__LanguageSyntax__/SimpleClassDiagram/SimpleClassDiagram"
 		]
 	}
 }

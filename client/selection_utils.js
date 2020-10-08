@@ -361,7 +361,7 @@ function __findRuleIcon()
 //returns 
 function __findIconsInRule()
 {
-	debugger;
+
 	var RuleIconList = __findRuleIcon();
 	var iconsList = __findIconsNotMDE();
 	for(i=0;i<RuleIconList.length;i++)

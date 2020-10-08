@@ -91,8 +91,10 @@ __canvasBehaviourStatechart = {
 		{
 			if( this.__currentState == this.__STATE_IDLE )
 			{
-				if( name == __EVENT_RIGHT_RELEASE_CANVAS )
+				if( name == __EVENT_RIGHT_RELEASE_CANVAS ){
+					
 					DataUtils.create(GUIUtils.convertToCanvasX(event), GUIUtils.convertToCanvasY(event));
+				}
 			
 				else if( name == __EVENT_LEFT_PRESS_CANVAS )
 					this.__T(this.__STATE_CANVAS_SELECTING,event);
@@ -126,8 +128,15 @@ __canvasBehaviourStatechart = {
 					this.__T(this.__STATE_SOMETHING_SELECTED,event);
 				}
 				
-				else if( name == __EVENT_RIGHT_PRESS_ICON )
+				else if( name == __EVENT_RIGHT_PRESS_ICON ){
+
 					this.__T(this.__STATE_DRAWING_EDGE,event);
+				}
+
+				else if( name == __EVENT_SHIFT_RIGHT_RELEASE_ICON )
+				{
+					__iconToBack(event.target);
+				}
 				
 				else if( name == __EVENT_SHIFT_WHEEL_ICON )
 				{
@@ -339,9 +348,14 @@ __canvasBehaviourStatechart = {
 				
 				else if( name == __EVENT_RIGHT_RELEASE_ICON )
 				{
-					if( ConnectionUtils.getConnectionPath().getTotalLength() <= 5 )
+					if( ConnectionUtils.getConnectionPath().getTotalLength() <= 15 ){
 						console.warn('to avoid accidental path creations, paths must '+
 										 'measure at least 5px');
+						//creates icons on top of other icons	 
+						DataUtils.create(GUIUtils.convertToCanvasX(event), GUIUtils.convertToCanvasY(event));
+
+						ConnectionUtils.hideConnectionPath();
+					}
 					else
 						DataUtils.connect(event.target);
 					this.__T(this.__STATE_IDLE,event);

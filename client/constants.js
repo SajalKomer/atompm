@@ -93,6 +93,7 @@ var __WEBPAGE__ = 'https://atompm.github.io/',
 	 __EVENT_SHOW_DIALOG						= 33,
 	 __EVENT_SHIFT_LEFT_RELEASE_ICON		= 34,
 	  __EVENT_KEYUP_ENTER = 35, // HUSEYIN-ENTER
+	  __EVENT_SHIFT_RIGHT_RELEASE_ICON = 36,
 	 
 	 __SC_CANVAS	= 0,
 	 __SC_DOCK		= 1,

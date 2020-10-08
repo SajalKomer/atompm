@@ -22,6 +22,7 @@ DataUtils = function(){
 	 * connection exists
 	 */
 	this.connect = function(uri1,uri2){
+		
 		if( uri2 == undefined )
 			return DataUtils.connect(ConnectionUtils.getConnectionSource(), __vobj2uri(uri1));
 	

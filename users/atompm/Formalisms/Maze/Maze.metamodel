@@ -1,0 +1,200 @@
+{
+	"types": {
+		"Positionable": [
+			{
+				"name": "position",
+				"type": "list<int>",
+				"default": [
+					0,
+					0
+				]
+			}
+		],
+		"Cell": [
+			{
+				"name": "northWall",
+				"type": "boolean",
+				"default": false
+			},
+			{
+				"name": "eastWall",
+				"type": "boolean",
+				"default": false
+			},
+			{
+				"name": "southWall",
+				"type": "boolean",
+				"default": false
+			},
+			{
+				"name": "westWall",
+				"type": "boolean",
+				"default": false
+			},
+			{
+				"name": "position",
+				"type": "list<int>",
+				"default": [
+					0,
+					0
+				]
+			}
+		],
+		"Ball": [
+			{
+				"name": "position",
+				"type": "list<int>",
+				"default": [
+					0,
+					0
+				]
+			}
+		],
+		"east": [],
+		"south": [],
+		"on": []
+	},
+	"constraints": [
+		{
+			"name": "noAbstractInstances",
+			"event": "pre-create",
+			"code": "false",
+			"targetType": "Positionable"
+		}
+	],
+	"actions": [
+		{
+			"name": "snapToTarget",
+			"event": "post-create",
+			"code": "/*newline*/      var targetNodes = getNeighbors('>'),/*newline*/          sourceNodes = getNeighbors('<');/*newline*/    /*newline*/        var targetNode = targetNodes[0],/*newline*/            sourceNode = sourceNodes[0];/*newline*/        /*newline*/        var sourcePosition = getAttr('position',sourceNode);/*newline*//*newline*/        setAttr('position',[sourcePosition[0]+51,sourcePosition[1]],targetNode);",
+			"targetType": "east"
+		},
+		{
+			"name": "snapToTarget",
+			"event": "post-create",
+			"code": "/*newline*/      var targetNodes = getNeighbors('>'),/*newline*/          sourceNodes = getNeighbors('<');/*newline*/    /*newline*/        var targetNode = targetNodes[0],/*newline*/            sourceNode = sourceNodes[0];/*newline*/        /*newline*/        var sourcePosition = getAttr('position',sourceNode);/*newline*//*newline*/        setAttr('position',[sourcePosition[0],sourcePosition[1]+51],targetNode);",
+			"targetType": "south"
+		},
+		{
+			"name": "snapToTarget",
+			"event": "post-create",
+			"code": "/*newline*/      var targetNodes = getNeighbors('>'),/*newline*/          sourceNodes = getNeighbors('<');/*newline*/    /*newline*/        var targetNode = targetNodes[0],/*newline*/            sourceNode = sourceNodes[0];/*newline*/        /*newline*/        var targetPosition = getAttr('position',targetNode);/*newline*//*newline*/        setAttr('position',[targetPosition[0]+10,targetPosition[1]+10],sourceNode);",
+			"targetType": "on"
+		}
+	],
+	"cardinalities": {
+		"Positionable": [],
+		"Cell": [
+			{
+				"dir": "out",
+				"type": "east",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "east",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "out",
+				"type": "south",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "south",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "on",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"Ball": [
+			{
+				"dir": "out",
+				"type": "on",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"east": [
+			{
+				"dir": "in",
+				"type": "Cell",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Cell",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"south": [
+			{
+				"dir": "in",
+				"type": "Cell",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Cell",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"on": [
+			{
+				"dir": "in",
+				"type": "Ball",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Cell",
+				"min": "0",
+				"max": "1"
+			}
+		]
+	},
+	"legalConnections": {
+		"Cell": {
+			"Cell": [
+				"east",
+				"south"
+			]
+		},
+		"Ball": {
+			"Cell": [
+				"on"
+			]
+		}
+	},
+	"connectorTypes": {
+		"east": "visual",
+		"south": "visual",
+		"on": "visual"
+	},
+	"types2parentTypes": {
+		"Positionable": [],
+		"Cell": [
+			"Positionable"
+		],
+		"Ball": [
+			"Positionable"
+		],
+		"east": [],
+		"south": [],
+		"on": []
+	}
+}

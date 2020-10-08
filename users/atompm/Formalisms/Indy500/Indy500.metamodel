@@ -1,0 +1,144 @@
+{
+	"types": {
+		"Car": [
+			{
+				"name": "position",
+				"type": "list<int>",
+				"default": [
+					0,
+					0
+				]
+			}
+		],
+		"Road": [
+			{
+				"name": "position",
+				"type": "list<int>",
+				"default": [
+					0,
+					0
+				]
+			}
+		],
+		"on": [],
+		"next": [],
+		"Positionable": [
+			{
+				"name": "position",
+				"type": "list<int>",
+				"default": [
+					0,
+					0
+				]
+			}
+		]
+	},
+	"constraints": [
+		{
+			"name": "noAbstractInstances",
+			"event": "pre-create",
+			"code": "false",
+			"targetType": "Positionable"
+		}
+	],
+	"actions": [
+		{
+			"name": "snapToTarget",
+			"event": "post-create",
+			"code": "/*newline*/      var targetNodes = getNeighbors('>'),/*newline*/          sourceNodes = getNeighbors('<');/*newline*/    /*newline*/        var targetNode = targetNodes[0],/*newline*/            sourceNode = sourceNodes[0];/*newline*/        /*newline*/        var targetPosition = getAttr('position',targetNode);/*newline*//*newline*/        setAttr('position',[targetPosition[0]+10,targetPosition[1]+10],sourceNode);",
+			"targetType": "on"
+		},
+		{
+			"name": "snapToTarget",
+			"event": "post-create",
+			"code": "/*newline*/      var targetNodes = getNeighbors('>'),/*newline*/          sourceNodes = getNeighbors('<');/*newline*/    /*newline*/        var targetNode = targetNodes[0],/*newline*/            sourceNode = sourceNodes[0];/*newline*/        /*newline*/        var sourcePosition = getAttr('position',sourceNode);/*newline*//*newline*/        setAttr('position',[sourcePosition[0],sourcePosition[1]+51],targetNode);",
+			"targetType": "next"
+		}
+	],
+	"cardinalities": {
+		"Car": [
+			{
+				"dir": "out",
+				"type": "on",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"Road": [
+			{
+				"dir": "in",
+				"type": "on",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "out",
+				"type": "next",
+				"min": "0",
+				"max": "Infinity"
+			},
+			{
+				"dir": "in",
+				"type": "next",
+				"min": "0",
+				"max": "Infinity"
+			}
+		],
+		"on": [
+			{
+				"dir": "in",
+				"type": "Car",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Road",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"next": [
+			{
+				"dir": "in",
+				"type": "Road",
+				"min": "0",
+				"max": "1"
+			},
+			{
+				"dir": "out",
+				"type": "Road",
+				"min": "0",
+				"max": "1"
+			}
+		],
+		"Positionable": []
+	},
+	"legalConnections": {
+		"Car": {
+			"Road": [
+				"on"
+			]
+		},
+		"Road": {
+			"Road": [
+				"next"
+			]
+		}
+	},
+	"connectorTypes": {
+		"on": "visual",
+		"next": "visual"
+	},
+	"types2parentTypes": {
+		"Car": [
+			"Positionable"
+		],
+		"Road": [
+			"Positionable"
+		],
+		"on": [],
+		"next": [],
+		"Positionable": []
+	}
+}
