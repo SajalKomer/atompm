@@ -3,6 +3,7 @@
 *  See COPYING.lesser and README.md in the root of this project for full details
 */
 
+
 /**
  * Gets the metamodel at the current URI
  */
@@ -239,8 +240,15 @@ function __createIcon(node,id)
 	icon.setAttr('__y',__getAbsoluteCoordinate(pos[1],bbox.height));
 	icon.setAttr('vector-effect','inherit');
 	__setIconTransform(id);
+	/* latestIcon = [];
+	latestIcon.push(icon.node.getAttribute('__csuri')); */
 	return icon;
 }
+
+/* function getLatestIcon()
+{
+	return latestIcon;
+} */
 
 
 /* icon positions may be set to [x,a%,y,b%], meaning that the point at a% of the

@@ -36,6 +36,11 @@ function __forceNextCSWSequenceNumber(sn)
 	__clearObsoleteChangelogs(__pendingCSWChangelogs,sn);
 }
 
+function getLatestIcon()
+{
+	return latestIcon;
+}
+
 //Todo: Shred this into smaller functions
 /* apply a changelog (or postpone its application)
 	
@@ -111,6 +116,10 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 				var node  = utils.jsonp(step['node']),
 					 icon = __createIcon(node,step['id']);
 
+					 latestIcon = [];
+					 //latestIcon.push(icon.node.getAttribute('__csuri'));
+					 latestIcon.push(__icons[step['id']]['icon'].node.getAttribute('__csuri'));
+
 				if( '$segments' in node )
 				{	
 					var linkStyle = node['link-style']['value'],
@@ -119,6 +128,80 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 					for( var edgeId in segments )
 						__createEdge(segments[edgeId], linkStyle, edgeId, step['id']);
 				}
+
+				// creates link if the icon being created is in top of another icon and if there is a legal connection between them.
+				if(UnderneathIcon != null)
+				{
+					underneathID = UnderneathIcon;
+					__Target = UnderneathIcon.getAttribute('__csuri');
+					UnderneathIcon = null;
+					latestIconID = latestIcon;
+					latestIcon = [];
+
+					containmentLinks = __legalConnections(__Target, latestIconID[0], __CONTAINMENT_LINK);
+					visualLinksES = __legalConnections(__Target, latestIconID[0], __VISUAL_LINK);
+					visualLinksOn = __legalConnections( latestIconID[0], __Target, __VISUAL_LINK);
+
+					if(containmentLinks.length != 0)
+					{
+						DataUtils.getInsertConnectionType(
+							underneathID,
+							latestIconID,
+							function(connectionType)
+										{
+											HttpUtils.httpReq(
+													'POST',
+													HttpUtils.url(connectionType,__NO_USERNAME),
+													{'src':__Target,
+													'dest':latestIconID[0],
+													'pos':[__icons[latestIconID[0]].icon.getAttr('__x'), __icons[latestIconID[0]].icon.getAttr('__y')]
+													});
+		
+										}
+							
+						);
+					}
+					else if(visualLinksES.length != 0)
+					{
+									callback 	= 
+									function(connectionType)
+													{
+														HttpUtils.httpReq(
+																'POST',
+																HttpUtils.url(connectionType,__NO_USERNAME),
+																{'src':__Target,
+																'dest':latestIconID[0],
+																'pos':[__icons[__Target].icon.getAttr('__x'), __icons[__Target].icon.getAttr('__y')]
+																});
+													};
+							
+									WindowManagement.openDialog(
+											_LEGAL_CONNECTIONS,
+											{'uri1':__Target,'uri2':latestIconID[0],'ctype':__VISUAL_LINK},
+											callback);
+		
+					}
+					else if(visualLinksOn.length != 0)
+					{
+						callback 	= 
+						function(connectionType)
+										{
+											HttpUtils.httpReq(
+													'POST',
+													HttpUtils.url(connectionType,__NO_USERNAME),
+													{'src':latestIconID[0],
+													'dest':__Target,
+													'pos':[__icons[__Target].icon.getAttr('__x'), __icons[__Target].icon.getAttr('__y')]
+													});
+										};
+				
+						WindowManagement.openDialog(
+								_LEGAL_CONNECTIONS,
+								{'uri1':latestIconID[0],'uri2':__Target,'ctype':__VISUAL_LINK},
+								callback);
+					}
+				}
+				
 			}
 
 			/* react to the removal of a node */	

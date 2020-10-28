@@ -22,7 +22,6 @@ DataUtils = function(){
 	 * connection exists
 	 */
 	this.connect = function(uri1,uri2){
-		
 		if( uri2 == undefined )
 			return DataUtils.connect(ConnectionUtils.getConnectionSource(), __vobj2uri(uri1));
 	
@@ -61,7 +60,8 @@ DataUtils = function(){
                 HttpUtils.url(__typeToCreate + '.type', __NO_USERNAME),
                 {'pos': [x, y]},
                 callback);
-        }
+		}
+		
     };
 
 	/**
@@ -172,7 +172,6 @@ DataUtils = function(){
 			 (__selection == undefined	|| __selection['items'].length == 0) )
 			return callback();
 		items = (items || __selection['items']);
-	
 		WindowManagement.openDialog(
 				_LEGAL_CONNECTIONS,
 				{'uri1':intouri,
@@ -184,7 +183,10 @@ DataUtils = function(){
 					if( utils.isObject(ctype) && '$err' in ctype )
 						callback();
 					else
+					{
 						callback(ctype);
+					}
+						
 				});
 	};
 	

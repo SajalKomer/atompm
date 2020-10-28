@@ -27,6 +27,8 @@ var EditUtils; /* Handles the Copy, Paste, Undo, and Redo options. Consider merg
 var GeometryUtils; /* Handles transformations and translations. */
 var MMMUtils;
 var Layout; /*For auto-layout capabilities. */
+var UnderneathIcon;
+var latestIcon=[];
 
 var currentKeys = [];
 

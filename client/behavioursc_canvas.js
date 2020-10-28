@@ -12,7 +12,7 @@ __canvasBehaviourStatechart = {
 	'__STATE_EDITING_CONNECTION_PATHS' 				: 5,
 	'__STATE_DRAGGING_CONNECTION_PATH_CTRL_POINT': 6,
 	'__currentState' 						 				: undefined,
-
+	'__Target': undefined,
 	'__entryActions':{
 		1:
 			function(event)
@@ -128,8 +128,8 @@ __canvasBehaviourStatechart = {
 					this.__T(this.__STATE_SOMETHING_SELECTED,event);
 				}
 				
-				else if( name == __EVENT_RIGHT_PRESS_ICON ){
-
+				else if( name == __EVENT_RIGHT_PRESS_ICON )
+				{
 					this.__T(this.__STATE_DRAWING_EDGE,event);
 				}
 
@@ -204,6 +204,11 @@ __canvasBehaviourStatechart = {
 				{
 					__select();
 					this.__T(this.__STATE_IDLE,event);
+				}
+
+				else if( name == __EVENT_RIGHT_PRESS_ICON )
+				{
+					this.__T(this.__STATE_DRAWING_EDGE,event);
 				}
 				
 				else if( name == __EVENT_LEFT_PRESS_SELECTION )
@@ -347,15 +352,19 @@ __canvasBehaviourStatechart = {
 					ConnectionUtils.snapConnectionSegment();
 				
 				else if( name == __EVENT_RIGHT_RELEASE_ICON )
-				{
+				{ 
+					UnderneathIcon = event.currentTarget;
+					
 					if( ConnectionUtils.getConnectionPath().getTotalLength() <= 15 ){
 						console.warn('to avoid accidental path creations, paths must '+
 										 'measure at least 5px');
+
+						ConnectionUtils.hideConnectionPath();	
+
 						//creates icons on top of other icons	 
 						DataUtils.create(GUIUtils.convertToCanvasX(event), GUIUtils.convertToCanvasY(event));
-
-						ConnectionUtils.hideConnectionPath();
 					}
+
 					else
 						DataUtils.connect(event.target);
 					this.__T(this.__STATE_IDLE,event);

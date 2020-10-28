@@ -107,7 +107,9 @@ CompileUtils = function(){
 				if( event.button == 0 )
 					BehaviorManager.handleUserEvent(__EVENT_LEFT_PRESS_ICON,event);
 				else if( event.button == 2 )
+				{
 					BehaviorManager.handleUserEvent(__EVENT_RIGHT_PRESS_ICON,event);
+				}
 			};
 		edge.node.onmouseup = 
 			function(event)

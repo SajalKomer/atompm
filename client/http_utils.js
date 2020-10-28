@@ -53,7 +53,7 @@ HttpUtils = function(){
 			req.onreadystatechange = onreadystatechange;
 			req.send(null);  
 		}
-		else if( method == 'POST' || method == 'PUT' )
+		else if( method == 'POST' || method == 'PUT' )	
 		{
 //			console.debug(method);
 //			console.debug(url);

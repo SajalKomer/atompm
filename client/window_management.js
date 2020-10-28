@@ -459,7 +459,10 @@ WindowManagement = function(){
 					error(err);
 			}
 			else if( legalConnections.length == 1 ) 
+			{
 				callback( legalConnections[0]+'Link.type' );
+			}
+				
 			else
 			{
 				var select = GUIUtils.getSelector(legalConnections);
