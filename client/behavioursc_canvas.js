@@ -208,7 +208,16 @@ __canvasBehaviourStatechart = {
 
 				else if( name == __EVENT_RIGHT_PRESS_ICON )
 				{
+					__select();
 					this.__T(this.__STATE_DRAWING_EDGE,event);
+				}
+
+				else if (name == __EVENT_RIGHT_PRESS_SELECTION)
+				{
+					SelectedItems = __selection.items;
+					
+					this.__T(this.__STATE_DRAWING_EDGE,event);
+					
 				}
 				
 				else if( name == __EVENT_LEFT_PRESS_SELECTION )
@@ -334,8 +343,20 @@ __canvasBehaviourStatechart = {
 				else if( name == __EVENT_KEYUP_ESC ||
 							name == __EVENT_RIGHT_RELEASE_CANVAS )
 				{
-					ConnectionUtils.hideConnectionPath();		
+					ConnectionUtils.hideConnectionPath();
+					if(SelectedItems.length != 0)
+					{
+						SelectedItems = [];
+						__select();
+					}		
 					this.__T(this.__STATE_IDLE,event);
+				}
+
+				else if(name == __EVENT_RIGHT_RELEASE_SELECTION)
+				{
+					ConnectionUtils.hideConnectionPath();
+					SelectedItems = [];
+					this.__T(this.__STATE_SOMETHING_SELECTED,event);
 				}
 
 				else if( name == __EVENT_LEFT_RELEASE_CANVAS ||
@@ -354,7 +375,7 @@ __canvasBehaviourStatechart = {
 				else if( name == __EVENT_RIGHT_RELEASE_ICON )
 				{ 
 					UnderneathIcon = event.currentTarget;
-					
+
 					if( ConnectionUtils.getConnectionPath().getTotalLength() <= 15 ){
 						console.warn('to avoid accidental path creations, paths must '+
 										 'measure at least 5px');
@@ -363,6 +384,42 @@ __canvasBehaviourStatechart = {
 
 						//creates icons on top of other icons	 
 						DataUtils.create(GUIUtils.convertToCanvasX(event), GUIUtils.convertToCanvasY(event));
+					}
+					// creates visual links from a selected icon to another icon
+					else if(SelectedItems.length != 0)
+					{
+						underneathID = UnderneathIcon;
+						__Target = UnderneathIcon.getAttribute('__csuri');
+						UnderneathIcon = null;
+						__selectedItems = SelectedItems;
+						SelectedItems = [];
+
+						if(__selectedItems.length == 1)
+						{
+							callback 	= 
+									function(connectionType)
+													{
+														HttpUtils.httpReq(
+																'POST',
+																HttpUtils.url(connectionType,__NO_USERNAME),
+																{'src':__selectedItems[0],
+																'dest':__Target
+																
+																});
+													};
+									ConnectionUtils.hideConnectionPath();
+									WindowManagement.openDialog(
+											_LEGAL_CONNECTIONS,
+											{'uri1':__selectedItems[0],'uri2':__Target,'ctype':__VISUAL_LINK},
+											callback);
+						}
+						else
+						{
+							ConnectionUtils.hideConnectionPath();
+							console.warn("cannot create links with more than one source!")
+						}
+						__select();
+						
 					}
 
 					else

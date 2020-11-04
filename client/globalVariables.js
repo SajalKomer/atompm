@@ -29,7 +29,7 @@ var MMMUtils;
 var Layout; /*For auto-layout capabilities. */
 var UnderneathIcon;
 var latestIcon=[];
-
+var SelectedItems = [];
 var currentKeys = [];
 
 // Command Keys
