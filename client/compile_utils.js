@@ -284,6 +284,7 @@ CompileUtils = function(){
 			if( 'behaviours' in options )
 			{
 				icon.setAttr('class','clickable');
+				
 				icon.node.onmousedown = 
 					function(event)
 					{
@@ -304,6 +305,8 @@ CompileUtils = function(){
 						{
 							if( event.shiftKey )
 								BehaviorManager.handleUserEvent(__EVENT_SHIFT_LEFT_RELEASE_ICON,event);
+							else if(event.altKey)
+								BehaviorManager.handleUserEvent(__EVENT_ALT_LEFT_RELEASE_ICON,event);
 							else
 								BehaviorManager.handleUserEvent(__EVENT_LEFT_RELEASE_ICON,event);							
 						}

@@ -98,6 +98,21 @@ __canvasBehaviourStatechart = {
 			
 				else if( name == __EVENT_LEFT_PRESS_CANVAS )
 					this.__T(this.__STATE_CANVAS_SELECTING,event);
+
+				else if(name == __EVENT_ALT_LEFT_RELEASE_ICON)
+				{
+					if(__IconType(event.currentTarget.getAttribute('__csuri'))=="/BirdIcon")
+					{
+						if(__icons[event.currentTarget.getAttribute('__csuri')].vobjects[1].attrs.src == "/atompm/Formalisms/Bird/icons/BirdLeft.png")
+							DataUtils.update(event.currentTarget.getAttribute('__csuri'),{facing: "Up"});
+						else if(__icons[event.currentTarget.getAttribute('__csuri')].vobjects[1].attrs.src == "/atompm/Formalisms/Bird/icons/BirdUp.png")
+							DataUtils.update(event.currentTarget.getAttribute('__csuri'),{facing: "Right"});
+						else if(__icons[event.currentTarget.getAttribute('__csuri')].vobjects[1].attrs.src == "/atompm/Formalisms/Bird/icons/BirdRight.png")
+							DataUtils.update(event.currentTarget.getAttribute('__csuri'),{facing: "Down"});	
+						else if(__icons[event.currentTarget.getAttribute('__csuri')].vobjects[1].attrs.src == "/atompm/Formalisms/Bird/icons/BirdDown.png")
+							DataUtils.update(event.currentTarget.getAttribute('__csuri'),{facing: "Left"});	
+					}
+				}
 		
 				else if( name == __EVENT_MIDDLE_RELEASE_ICON )
 				{
