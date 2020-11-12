@@ -370,8 +370,16 @@ __canvasBehaviourStatechart = {
 				else if(name == __EVENT_RIGHT_RELEASE_SELECTION)
 				{
 					ConnectionUtils.hideConnectionPath();
-					SelectedItems = [];
-					this.__T(this.__STATE_SOMETHING_SELECTED,event);
+					if(SelectedItems.length == 1)
+					{
+						DataUtils.create(GUIUtils.convertToCanvasX(event), GUIUtils.convertToCanvasY(event));
+					}
+					else if(SelectedItems.length != 1)
+					{
+						SelectedItems = [];
+						__select();
+					}
+					this.__T(this.__STATE_IDLE,event);
 				}
 
 				else if( name == __EVENT_LEFT_RELEASE_CANVAS ||
@@ -390,7 +398,6 @@ __canvasBehaviourStatechart = {
 				else if( name == __EVENT_RIGHT_RELEASE_ICON )
 				{ 
 					UnderneathIcon = event.currentTarget;
-
 					if( ConnectionUtils.getConnectionPath().getTotalLength() <= 15 ){
 						console.warn('to avoid accidental path creations, paths must '+
 										 'measure at least 5px');

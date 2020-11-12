@@ -130,13 +130,22 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 				}
 
 				// creates link if the icon being created is in top of another icon and if there is a legal connection between them.
-				if(UnderneathIcon != null)
+				if(UnderneathIcon != null || SelectedItems.length == 1)
 				{
-					underneathID = UnderneathIcon;
-					__Target = UnderneathIcon.getAttribute('__csuri');
-					UnderneathIcon = null;
 					latestIconID = latestIcon;
 					latestIcon = [];
+
+					if(SelectedItems.length == 1)
+					{
+						__Target = SelectedItems[0];
+						SelectedItems = [];
+					}
+					else
+					{
+						underneathID = UnderneathIcon;
+					    __Target = UnderneathIcon.getAttribute('__csuri');
+					    UnderneathIcon = null;
+					}
 
 					if(__isContainmentLink( latestIconID[0], __Target))
 					{
