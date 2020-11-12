@@ -40,6 +40,10 @@ DataUtils = function(){
 				 };
 	
 		ConnectionUtils.hideConnectionPath();
+		if(!__isVisualLink(uri1, uri2) && (__isUnderneathVisualLinkOneDir(uri1, uri2) || __isUnderneathVisualLinkBothDir(uri1, uri2)))
+		{
+			uri2 = __edgeId2ends(__getConnectionParticipants(__icons[uri2].edgesOut[0])[2])[1];
+		}	
 		WindowManagement.openDialog(
 				_LEGAL_CONNECTIONS,
 				{'uri1':uri1,'uri2':uri2,'ctype':__VISUAL_LINK},

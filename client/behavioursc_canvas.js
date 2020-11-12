@@ -411,22 +411,17 @@ __canvasBehaviourStatechart = {
 
 						if(__selectedItems.length == 1)
 						{
-							callback 	= 
-									function(connectionType)
-													{
-														HttpUtils.httpReq(
-																'POST',
-																HttpUtils.url(connectionType,__NO_USERNAME),
-																{'src':__selectedItems[0],
-																'dest':__Target
-																
-																});
-													};
-									ConnectionUtils.hideConnectionPath();
-									WindowManagement.openDialog(
-											_LEGAL_CONNECTIONS,
-											{'uri1':__selectedItems[0],'uri2':__Target,'ctype':__VISUAL_LINK},
-											callback);
+							/* if there is no visual links from src to __Target then checks if __Target has a connected underneath icon or not, if there is connected underneath icon
+					   			and there is visual connection exists between the src and the underneath connected icon, then changes the __Target to the
+					   			underneath connected icon and connect them with visual on link */
+							if(!__isVisualLink(__selectedItems[0], __Target) 
+								&& ( __isUnderneathVisualLinkOneDir(__selectedItems[0], __Target) || __isUnderneathVisualLinkBothDir(__selectedItems[0], __Target)))
+							{
+								__Target = __edgeId2ends(__getConnectionParticipants(__icons[__Target].edgesOut[0])[2])[1];	
+							}
+
+							ConnectionUtils.hideConnectionPath();
+							__createVisualLink(__selectedItems[0], __Target);
 						}
 						else
 						{
@@ -438,7 +433,11 @@ __canvasBehaviourStatechart = {
 					}
 
 					else
-						DataUtils.connect(event.target);
+						{
+							UnderneathIcon = null;
+							DataUtils.connect(event.target);
+						}
+						
 					this.__T(this.__STATE_IDLE,event);
 				}
 				

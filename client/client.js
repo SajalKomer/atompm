@@ -1037,3 +1037,64 @@ function __getRecentDir(name) {
 function __setRecentDir(name,value) {
 	utils.createCookie('recentDir'+name,value);
 }
+
+function __createVisualLink(srcUri, tarUri)
+{
+	callback = function (connectionType) {
+		HttpUtils.httpReq(
+			"POST", 
+			HttpUtils.url(connectionType, __NO_USERNAME), 
+			{
+      		'src': srcUri,
+			'dest': tarUri,
+			'pos':[__icons[tarUri].icon.getAttr('__x'), __icons[tarUri].icon.getAttr('__y')]
+      		});
+	};
+	
+  
+  	WindowManagement.openDialog(
+    	_LEGAL_CONNECTIONS,
+    	{ 'uri1': srcUri, 'uri2': tarUri, ctype: __VISUAL_LINK },
+    	callback
+  );
+}
+
+/**
+ * returns true if there is visual link between srcUri and tarUri
+ */
+function __isVisualLink(srcUri, tarUri)
+{
+	return __legalConnections( srcUri, tarUri, __VISUAL_LINK).length != 0;
+}
+
+/**
+ * returns true if there is containment link between srcUri and tarUri
+ */
+function __isContainmentLink(srcUri, tarUri)
+{
+	return __legalConnections( tarUri, srcUri, __CONTAINMENT_LINK).length != 0;
+}
+
+/** 
+ * returns true if there is a visual link from srcUri to the underneath connected item of tarUri in one direction from srcUri to the underneath connected item
+ * but not the other direction 
+ */
+function __isUnderneathVisualLinkOneDir(srcUri, tarUri)
+{
+	return __icons[tarUri].edgesOut[0] != undefined
+			&& __edgeId2ends(__getConnectionParticipants(__icons[tarUri].edgesOut[0])[2])[1] != undefined
+			&& __legalConnections( srcUri,__edgeId2ends(__getConnectionParticipants(__icons[tarUri].edgesOut[0])[2])[1], __VISUAL_LINK).length != 0
+			&& __legalConnections( __edgeId2ends(__getConnectionParticipants(__icons[tarUri].edgesOut[0])[2])[1], srcUri, __VISUAL_LINK).length == 0;
+}
+
+/** 
+ * returns true if there is a link from srcUri to the underneath connected item of tarUri in both direction from srcUri to the underneath connected item
+ * and from underneath connected item to the srcUri
+ */
+function __isUnderneathVisualLinkBothDir(srcUri, tarUri)
+{
+	return __icons[tarUri].edgesOut[0] != undefined
+			&& __edgeId2ends(__getConnectionParticipants(__icons[tarUri].edgesOut[0])[2])[1] != undefined
+			&& __legalConnections( srcUri,__edgeId2ends(__getConnectionParticipants(__icons[tarUri].edgesOut[0])[2])[1], __VISUAL_LINK).length != 0
+			&& __legalConnections( __edgeId2ends(__getConnectionParticipants(__icons[tarUri].edgesOut[0])[2])[1], srcUri, __VISUAL_LINK).length != 0;
+}

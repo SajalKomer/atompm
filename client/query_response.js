@@ -138,11 +138,7 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 					latestIconID = latestIcon;
 					latestIcon = [];
 
-					containmentLinks = __legalConnections(__Target, latestIconID[0], __CONTAINMENT_LINK);
-					visualLinksES = __legalConnections(__Target, latestIconID[0], __VISUAL_LINK);
-					visualLinksOn = __legalConnections( latestIconID[0], __Target, __VISUAL_LINK);
-
-					if(containmentLinks.length != 0)
+					if(__isContainmentLink( latestIconID[0], __Target))
 					{
 						DataUtils.getInsertConnectionType(
 							underneathID,
@@ -161,44 +157,28 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 							
 						);
 					}
-					else if(visualLinksES.length != 0)
+					else if(__isVisualLink(__Target, latestIconID[0]) && __isVisualLink(latestIconID[0], __Target))
 					{
-									callback 	= 
-									function(connectionType)
-													{
-														HttpUtils.httpReq(
-																'POST',
-																HttpUtils.url(connectionType,__NO_USERNAME),
-																{'src':__Target,
-																'dest':latestIconID[0],
-																'pos':[__icons[__Target].icon.getAttr('__x'), __icons[__Target].icon.getAttr('__y')]
-																});
-													};
-							
-									WindowManagement.openDialog(
-											_LEGAL_CONNECTIONS,
-											{'uri1':__Target,'uri2':latestIconID[0],'ctype':__VISUAL_LINK},
-											callback);
+						__createVisualLink( __Target, latestIconID[0]);			
 		
 					}
-					else if(visualLinksOn.length != 0)
+					else if(__isVisualLink(latestIconID[0], __Target) && !__isVisualLink(__Target, latestIconID[0]))
 					{
-						callback 	= 
-						function(connectionType)
-										{
-											HttpUtils.httpReq(
-													'POST',
-													HttpUtils.url(connectionType,__NO_USERNAME),
-													{'src':latestIconID[0],
-													'dest':__Target,
-													'pos':[__icons[__Target].icon.getAttr('__x'), __icons[__Target].icon.getAttr('__y')]
-													});
-										};
-				
-						WindowManagement.openDialog(
-								_LEGAL_CONNECTIONS,
-								{'uri1':latestIconID[0],'uri2':__Target,'ctype':__VISUAL_LINK},
-								callback);
+						__createVisualLink(  latestIconID[0], __Target);	
+					}
+
+					/* if there is no visual links from src to __Target then checks if __Target has a connected underneath icon or not, if there is connected underneath icon
+					   and there is visual connection exists between the src and the underneath connected icon, then changes the __Target to the
+					   underneath connected icon and connect them with visual on link */
+					else if(!__isVisualLink(latestIconID[0], __Target) && __isUnderneathVisualLinkOneDir(latestIconID[0], __Target))
+					{
+						__Target = __edgeId2ends(__getConnectionParticipants(__icons[__Target].edgesOut[0])[2])[1];
+						__createVisualLink(  latestIconID[0], __Target);
+					}
+					else if(!__isVisualLink(latestIconID[0], __Target) && __isUnderneathVisualLinkBothDir(latestIconID[0], __Target))
+					{
+						__Target = __edgeId2ends(__getConnectionParticipants(__icons[__Target].edgesOut[0])[2])[1];
+						__createVisualLink( __Target, latestIconID[0]);
 					}
 				}
 				
