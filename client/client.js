@@ -1098,3 +1098,34 @@ function __isUnderneathVisualLinkBothDir(srcUri, tarUri)
 			&& __legalConnections( srcUri,__edgeId2ends(__getConnectionParticipants(__icons[tarUri].edgesOut[0])[2])[1], __VISUAL_LINK).length != 0
 			&& __legalConnections( __edgeId2ends(__getConnectionParticipants(__icons[tarUri].edgesOut[0])[2])[1], srcUri, __VISUAL_LINK).length != 0;
 }
+
+/**
+ * changes the facing of bird icon to the next facing
+ */
+function __changeFacing(uri)
+{
+	if(__IconType(uri)=="/BirdIcon")
+	{
+		HttpUtils.httpReq(
+			'GET', 
+			HttpUtils.url(uri), 
+			undefined, 
+			function(statusCode, resp){facing = utils.jsonp( utils.jsonp(resp)['data'] )['facing']['value']}
+			);
+		
+	
+		 setTimeout(
+			function()
+				{
+					if(facing == "Left")
+						DataUtils.update(uri,{facing: "Up"});
+					else if(facing == "Up")
+						DataUtils.update(uri,{facing: "Right"});
+					else if(facing == "Right")
+						DataUtils.update(uri,{facing: "Down"});	
+					else if(facing == "Down")
+						DataUtils.update(uri,{facing: "Left"});
+				}, 
+				50);
+	}
+}

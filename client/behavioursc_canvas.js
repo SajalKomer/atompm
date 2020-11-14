@@ -94,6 +94,7 @@ __canvasBehaviourStatechart = {
 				if( name == __EVENT_RIGHT_RELEASE_CANVAS ){
 					
 					DataUtils.create(GUIUtils.convertToCanvasX(event), GUIUtils.convertToCanvasY(event));
+					
 				}
 			
 				else if( name == __EVENT_LEFT_PRESS_CANVAS )
@@ -101,17 +102,9 @@ __canvasBehaviourStatechart = {
 
 				else if(name == __EVENT_ALT_LEFT_RELEASE_ICON)
 				{
-					if(__IconType(event.currentTarget.getAttribute('__csuri'))=="/BirdIcon")
-					{
-						if(__icons[event.currentTarget.getAttribute('__csuri')].vobjects[1].attrs.src == "/atompm/Formalisms/Bird/icons/BirdLeft.png")
-							DataUtils.update(event.currentTarget.getAttribute('__csuri'),{facing: "Up"});
-						else if(__icons[event.currentTarget.getAttribute('__csuri')].vobjects[1].attrs.src == "/atompm/Formalisms/Bird/icons/BirdUp.png")
-							DataUtils.update(event.currentTarget.getAttribute('__csuri'),{facing: "Right"});
-						else if(__icons[event.currentTarget.getAttribute('__csuri')].vobjects[1].attrs.src == "/atompm/Formalisms/Bird/icons/BirdRight.png")
-							DataUtils.update(event.currentTarget.getAttribute('__csuri'),{facing: "Down"});	
-						else if(__icons[event.currentTarget.getAttribute('__csuri')].vobjects[1].attrs.src == "/atompm/Formalisms/Bird/icons/BirdDown.png")
-							DataUtils.update(event.currentTarget.getAttribute('__csuri'),{facing: "Left"});	
-					}
+					bird = event.currentTarget.getAttribute('__csuri');
+
+					__changeFacing(bird);
 				}
 		
 				else if( name == __EVENT_MIDDLE_RELEASE_ICON )
@@ -418,9 +411,9 @@ __canvasBehaviourStatechart = {
 
 						if(__selectedItems.length == 1)
 						{
-							/* if there is no visual links from src to __Target then checks if __Target has a connected underneath icon or not, if there is connected underneath icon
-					   			and there is visual connection exists between the src and the underneath connected icon, then changes the __Target to the
-					   			underneath connected icon and connect them with visual on link */
+							/* if there is no visual links from src to __Target then checks if __Target has a connected underneath icon or not, if there is 
+								connected underneath icon and there is visual connection exists between the src and the underneath connected icon, then changes 
+								the __Target to the underneath connected icon and connect them with visual on link */
 							if(!__isVisualLink(__selectedItems[0], __Target) 
 								&& ( __isUnderneathVisualLinkOneDir(__selectedItems[0], __Target) || __isUnderneathVisualLinkBothDir(__selectedItems[0], __Target)))
 							{
