@@ -97,6 +97,7 @@ var __WEBPAGE__ = 'https://atompm.github.io/',
 	  __EVENT_RIGHT_PRESS_SELECTION = 37,
 	  __EVENT_RIGHT_RELEASE_SELECTION = 38,
 	  __EVENT_ALT_LEFT_RELEASE_ICON = 39,
+	  __EVENT_KEYDOWN_E_W_S_N_ICON_SELECTION = 41,	
 	 
 	 __SC_CANVAS	= 0,
 	 __SC_DOCK		= 1,

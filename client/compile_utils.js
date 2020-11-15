@@ -284,7 +284,7 @@ CompileUtils = function(){
 			if( 'behaviours' in options )
 			{
 				icon.setAttr('class','clickable');
-				
+
 				icon.node.onmousedown = 
 					function(event)
 					{

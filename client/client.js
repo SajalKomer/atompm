@@ -1129,3 +1129,58 @@ function __changeFacing(uri)
 				50);
 	}
 }
+
+
+/**
+ * creates CellIcon or EmptyIcon or TileIcon in the east, west, south or north direction of a selected CellIcon or EmptyIcon or TileIcon
+ * connect them with visual links depending on the key direction
+ */
+function __createIconInDirectionESWN()
+{
+	if (__selection.items.length == 1) {
+		item = __selection.items[0];
+
+		if (__IconType(item) == "/EmptyIcon" || __IconType(item) == "/TileIcon") {
+			if (__typeToCreate == "/Formalisms/Bird/Bird.defaultIcons/EmptyIcon" || __typeToCreate == "/Formalisms/Bird/Bird.defaultIcons/TileIcon") {
+				SelectedItems = __selection.items;
+				if (Key_E_S_W_N == 'E') {
+					ESconnection.push("/Formalisms/Bird/Bird.defaultIcons/east");
+					DataUtils.create(Number(__icons[item].icon.node.getAttribute('__x')) + 48, Number(__icons[item].icon.node.getAttribute('__y')));
+				}
+				else if (Key_E_S_W_N == 'S') {
+					ESconnection.push("/Formalisms/Bird/Bird.defaultIcons/south");
+					DataUtils.create(Number(__icons[item].icon.node.getAttribute('__x')), Number(__icons[item].icon.node.getAttribute('__y')) + 48);
+				}
+				else if (Key_E_S_W_N == 'N') {
+					ESconnection.push("/Formalisms/Bird/Bird.defaultIcons/south");
+					DataUtils.create(Number(__icons[item].icon.node.getAttribute('__x')), Number(__icons[item].icon.node.getAttribute('__y')) - 48);
+				}
+				else if (Key_E_S_W_N == 'W') {
+					ESconnection.push("/Formalisms/Bird/Bird.defaultIcons/east");
+					DataUtils.create(Number(__icons[item].icon.node.getAttribute('__x')) - 48, Number(__icons[item].icon.node.getAttribute('__y')));
+				}
+
+			}
+
+		}
+		else if (__IconType(item) == "/CellIcon" && __typeToCreate == "/Formalisms/Maze/Maze.defaultIcons/CellIcon") {
+			SelectedItems = __selection.items;
+			if (Key_E_S_W_N == 'E') {
+				ESconnection.push("/Formalisms/Maze/Maze.defaultIcons/east");
+				DataUtils.create(Number(__icons[item].icon.node.getAttribute('__x')) + 48, Number(__icons[item].icon.node.getAttribute('__y')));
+			}
+			else if (Key_E_S_W_N == 'S') {
+				ESconnection.push("/Formalisms/Maze/Maze.defaultIcons/south");
+				DataUtils.create(Number(__icons[item].icon.node.getAttribute('__x')), Number(__icons[item].icon.node.getAttribute('__y')) + 48);
+			}
+			else if (Key_E_S_W_N == 'N') {
+				ESconnection.push("/Formalisms/Maze/Maze.defaultIcons/south");
+				DataUtils.create(Number(__icons[item].icon.node.getAttribute('__x')), Number(__icons[item].icon.node.getAttribute('__y')) - 48);
+			}
+			else if (Key_E_S_W_N == 'W') {
+				ESconnection.push("/Formalisms/Maze/Maze.defaultIcons/east");
+				DataUtils.create(Number(__icons[item].icon.node.getAttribute('__x')) - 48, Number(__icons[item].icon.node.getAttribute('__y')));
+			}
+		}
+	}
+}

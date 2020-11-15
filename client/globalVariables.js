@@ -32,6 +32,9 @@ var latestIcon=[];
 var SelectedItems = [];
 var currentKeys = [];
 
+var ESconnection = [];
+var Key_E_S_W_N;
+
 // Command Keys
 var KEY_TAB = 9,
 	KEY_ENTER = 13,
@@ -43,7 +46,12 @@ var KEY_TAB = 9,
 	KEY_DEL = 46,
 	KEY_CMD1 = 91, 
 	KEY_CMD2 = 92, 
-	KEY_CMD3 = 224;
+	KEY_CMD3 = 224,
+	KEY_E = 69,
+	KEY_S = 83,
+	KEY_W = 87,
+	KEY_N = 78;
+
 
 // Arrow Keys
 var KEY_RIGHT_ARROW = 39, 

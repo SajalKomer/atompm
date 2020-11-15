@@ -199,7 +199,14 @@ __canvasBehaviourStatechart = {
 					__select();
 					this.__T(this.__STATE_IDLE,event);			
 				}
-				
+
+				else if(name == __EVENT_KEYDOWN_E_W_S_N_ICON_SELECTION)
+				{
+					__createIconInDirectionESWN();
+					__select();
+					this.__T(this.__STATE_IDLE,event);
+				}
+
 				else if( name == __EVENT_KEYUP_ESC			  			||
 							name == __EVENT_LEFT_PRESS_CANVAS  			||
 							name == __EVENT_LEFT_PRESS_ICON 	  			||

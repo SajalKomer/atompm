@@ -121,7 +121,7 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 					 latestIcon.push(__icons[step['id']]['icon'].node.getAttribute('__csuri'));
 
 				if( '$segments' in node )
-				{	
+				{
 					var linkStyle = node['link-style']['value'],
 						 segments  = node['$segments']['value'];
 					icon.setAttr('__segments',utils.jsons(segments));
@@ -168,8 +168,18 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 					}
 					else if(__isVisualLink(__Target, latestIconID[0]) && __isVisualLink(latestIconID[0], __Target))
 					{
-						__createVisualLink( __Target, latestIconID[0]);			
-		
+						if(Key_E_S_W_N != null)
+						{
+							if(Key_E_S_W_N == 'W' || Key_E_S_W_N == 'N')
+								__createVisualLink(  latestIconID[0], __Target);
+							else if(Key_E_S_W_N == 'E' || Key_E_S_W_N == 'S')
+								__createVisualLink( __Target, latestIconID[0]);
+
+							Key_E_S_W_N = null;	
+						}
+						else
+							__createVisualLink( __Target, latestIconID[0]);	
+						
 					}
 					else if(__isVisualLink(latestIconID[0], __Target) && !__isVisualLink(__Target, latestIconID[0]))
 					{
