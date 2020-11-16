@@ -1110,23 +1110,18 @@ function __changeFacing(uri)
 			'GET', 
 			HttpUtils.url(uri), 
 			undefined, 
-			function(statusCode, resp){facing = utils.jsonp( utils.jsonp(resp)['data'] )['facing']['value']}
+			function(statusCode, resp){
+				facing = utils.jsonp( utils.jsonp(resp)['data'] )['facing']['value'];
+				if(facing == "Left")
+					DataUtils.update(uri,{facing: "Up"});
+				else if(facing == "Up")
+					DataUtils.update(uri,{facing: "Right"});
+				else if(facing == "Right")
+					DataUtils.update(uri,{facing: "Down"});	
+				else if(facing == "Down")
+					DataUtils.update(uri,{facing: "Left"});
+			}
 			);
-		
-	
-		 setTimeout(
-			function()
-				{
-					if(facing == "Left")
-						DataUtils.update(uri,{facing: "Up"});
-					else if(facing == "Up")
-						DataUtils.update(uri,{facing: "Right"});
-					else if(facing == "Right")
-						DataUtils.update(uri,{facing: "Down"});	
-					else if(facing == "Down")
-						DataUtils.update(uri,{facing: "Left"});
-				}, 
-				50);
 	}
 }
 
