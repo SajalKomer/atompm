@@ -166,21 +166,33 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 							
 						);
 					}
+					// for creating east and south links
 					else if(__isVisualLink(__Target, latestIconID[0]) && __isVisualLink(latestIconID[0], __Target))
 					{
 						if(Key_E_S_W_N != null)
 						{
 							if(Key_E_S_W_N == 'W' || Key_E_S_W_N == 'N')
+							{
 								__createVisualLink(  latestIconID[0], __Target);
+								setTimeout(function(){__findSuroundingIconsAndConnect(latestIconID[0]);}, 50);
+							}	
 							else if(Key_E_S_W_N == 'E' || Key_E_S_W_N == 'S')
+							{
 								__createVisualLink( __Target, latestIconID[0]);
-
+								setTimeout( function(){__findSuroundingIconsAndConnect(latestIconID[0]);}, 50);
+							}
+								
 							Key_E_S_W_N = null;	
 						}
 						else
+						{
 							__createVisualLink( __Target, latestIconID[0]);	
+							//setTimeout( function(){__findSuroundingIconsAndConnect(latestIconID[0]);}, 4000);
+						}
+							
 						
 					}
+					// for creating on links
 					else if(__isVisualLink(latestIconID[0], __Target) && !__isVisualLink(__Target, latestIconID[0]))
 					{
 						__createVisualLink(  latestIconID[0], __Target);	
