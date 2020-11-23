@@ -1038,6 +1038,9 @@ function __setRecentDir(name,value) {
 	utils.createCookie('recentDir'+name,value);
 }
 
+/**
+ * creates visual link from srcUri to tarUri
+ */
 function __createVisualLink(srcUri, tarUri)
 {
 	callback = function (connectionType) {
@@ -1244,4 +1247,23 @@ function __findSuroundingIconsAndConnect(uri)
 
 	}
 
+}
+
+/**
+ * delete outgoing on links from uri (if uri is PigIcon or BirdIcon or BallIcon)
+ */
+function __removeOnLinks(uri)
+{
+	if((__IconType(uri) == "/PigIcon" || __IconType(uri) == "/BirdIcon" || __IconType(uri) == "/BallIcon") && __icons[uri].edgesOut.length != 0)
+		{
+			edgeIds = __icons[uri].edgesOut;
+			for(var item in edgeIds)
+			{
+				link =__edgeId2ends(edgeIds[item])[1];
+				__icons[link]['icon'].remove();
+				__icons[link]['edgesOut'].forEach(__removeEdge);
+				__icons[link]['edgesIn'].forEach(__removeEdge);
+				delete __icons[link];
+			}
+		}
 }

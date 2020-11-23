@@ -56,7 +56,7 @@ EditUtils = function(){
 		var icons  = 
 				__selection['items'].filter( function(it) {return it in __icons;} ),
 			 todo   = icons.length,
-			 cpdata = {};
+			 cpdata = {};	 
 		icons.forEach(
 			function(uri)
 			{

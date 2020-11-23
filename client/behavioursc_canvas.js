@@ -428,6 +428,7 @@ __canvasBehaviourStatechart = {
 							}
 
 							ConnectionUtils.hideConnectionPath();
+							__removeOnLinks(__selectedItems[0]);
 							__createVisualLink(__selectedItems[0], __Target);
 						}
 						else

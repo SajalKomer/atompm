@@ -173,11 +173,13 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 						{
 							if(Key_E_S_W_N == 'W' || Key_E_S_W_N == 'N')
 							{
+								//__createVisLinkAndConnectSuroundingIcons(latestIconID[0], __Target, latestIconID[0], __findSuroundingIconsAndConnect);
 								__createVisualLink(  latestIconID[0], __Target);
 								setTimeout(function(){__findSuroundingIconsAndConnect(latestIconID[0]);}, 50);
 							}	
 							else if(Key_E_S_W_N == 'E' || Key_E_S_W_N == 'S')
 							{
+								//__createVisLinkAndConnectSuroundingIcons( __Target, latestIconID[0], latestIconID[0], __findSuroundingIconsAndConnect);
 								__createVisualLink( __Target, latestIconID[0]);
 								setTimeout( function(){__findSuroundingIconsAndConnect(latestIconID[0]);}, 50);
 							}
