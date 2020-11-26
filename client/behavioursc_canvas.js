@@ -206,6 +206,10 @@ __canvasBehaviourStatechart = {
 					__select();
 					this.__T(this.__STATE_IDLE,event);
 				}
+				else if(name == __EVENT_KEYDOWN_R_RULE_SELECTION)
+				{
+					__copyLHSiconsToRHSinRuleIcon();
+				}
 
 				else if( name == __EVENT_KEYUP_ESC			  			||
 							name == __EVENT_LEFT_PRESS_CANVAS  			||

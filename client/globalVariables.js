@@ -34,6 +34,7 @@ var currentKeys = [];
 
 var ESconnection = [];
 var Key_E_S_W_N;
+var IconsBeforeCopy = [];
 
 // Command Keys
 var KEY_TAB = 9,
@@ -50,7 +51,8 @@ var KEY_TAB = 9,
 	KEY_E = 69,
 	KEY_S = 83,
 	KEY_W = 87,
-	KEY_N = 78;
+	KEY_N = 78,
+	KEY_R = 82;
 
 
 // Arrow Keys

@@ -1267,3 +1267,82 @@ function __removeOnLinks(uri)
 			}
 		}
 }
+
+/**
+ * copies LHS icons and paste in RHS in a selected RuleIcon of BlockBasedMDE
+ */
+function __copyLHSiconsToRHSinRuleIcon()
+{
+	var iconsBefore = [];
+	var rule;
+	if(__selection['items'].length == 1 && __selection['items'][0].includes("RuleIcon"))
+	{   
+		var LHSIcons = [];
+		rule = __selection['items'][0];
+		ruleX = __icons[rule].icon.node.getAttribute('__x');
+		ruleY = __icons[rule].icon.node.getAttribute('__y');
+		for(var item in __icons)
+		{
+			iconsBefore.push(__icons[item].icon.node.getAttribute('__csuri'));
+			itemX = __icons[item].icon.node.getAttribute('__x');
+			itemY = __icons[item].icon.node.getAttribute('__y');
+			if((itemX > ruleX) && (itemX < Number(ruleX)+310) && (itemY > ruleY) && (itemY < Number(ruleY)+235))
+			{
+				LHSIcons.push(__icons[item].icon.node.getAttribute('__csuri'));
+			}
+		}
+
+		if(LHSIcons.length == 0)
+			return;
+
+		__select();
+
+		for(var uri in LHSIcons)
+		{ 
+			if( __isConnectionType(LHSIcons[uri]) )
+			{
+				for(var edgeI in __icons[LHSIcons[uri]]['edgesIn'])	
+					LHSIcons.push(__icons[LHSIcons[uri]]['edgesIn'][edgeI]);
+			
+				for(var edgeO in __icons[LHSIcons[uri]]['edgesOut'])	
+					LHSIcons.push(__icons[LHSIcons[uri]]['edgesOut'][edgeO]);
+			}	
+		}
+
+		__select(LHSIcons);
+		EditUtils.copy();
+
+		setTimeout(function(){		
+			EditUtils.paste();
+			}, 100);
+
+		setTimeout(function(){
+				newIcons = [];
+				for(var uri in __icons){
+					newIcons.push(__icons[uri].icon.node.getAttribute('__csuri'));
+				}
+
+				for(var uri in newIcons)
+				{
+					for(var itm in iconsBefore)
+					{
+						if((newIcons[uri] == iconsBefore[itm]))
+						{
+							//delete newIcons[uri];
+							newIcons.splice(uri, 1);
+						}
+					}
+				}
+
+				for(var i in newIcons)
+				{
+					if(newIcons[i] != undefined)
+					{
+						__icons[newIcons[i]].icon.node.setAttribute('__x', Number(__icons[newIcons[i]].icon.node.getAttribute('__x'))+315);
+						__setIconTransform(__icons[newIcons[i]].icon.node.getAttribute('__csuri'));
+					}
+				}
+				__select(newIcons);
+			},200);
+	}
+}

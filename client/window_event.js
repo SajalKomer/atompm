@@ -158,6 +158,9 @@ WindowEventHelper = function(){
 				Key_E_S_W_N = 'N';
 			processEvent(null,null,__EVENT_KEYDOWN_E_W_S_N_ICON_SELECTION,event);
 		}
+		else if(event.keyCode == KEY_R){
+			processEvent(null, null, __EVENT_KEYDOWN_R_RULE_SELECTION, event);
+		}
 		else if( event.keyCode == KEY_CTRL ){
 			processEvent( KEY_CTRL, 1, null, event);
 		} else if( event.keyCode == KEY_ALT ){
