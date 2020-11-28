@@ -1256,15 +1256,28 @@ function __removeOnLinks(uri)
 {
 	if((__IconType(uri) == "/PigIcon" || __IconType(uri) == "/BirdIcon" || __IconType(uri) == "/BallIcon") && __icons[uri].edgesOut.length != 0)
 		{
-			edgeIds = __icons[uri].edgesOut;
-			for(var item in edgeIds)
-			{
-				link =__edgeId2ends(edgeIds[item])[1];
-				__icons[link]['icon'].remove();
-				__icons[link]['edgesOut'].forEach(__removeEdge);
-				__icons[link]['edgesIn'].forEach(__removeEdge);
-				delete __icons[link];
-			}
+			var edgesO = __icons[uri].edgesOut;
+
+			var Items = [];
+			onlink =__edgeId2ends(edgesO[0])[1];
+			Items.push(onlink);
+			Items.push(__icons[onlink]['edgesOut'][0]);
+			Items.push(__icons[onlink]['edgesIn'][0]);
+
+			var requests = [];
+				Items.forEach(
+				function(it)
+				{
+				if( it in __icons )
+					requests.push(
+						{'method':'DELETE', 
+						 'uri':HttpUtils.url(it,__NO_USERNAME+__NO_WID)});
+				});
+
+			HttpUtils.httpReq(
+				'POST',
+				HttpUtils.url('/batchEdit',__NO_USERNAME),
+				requests);
 		}
 }
 

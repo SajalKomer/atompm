@@ -324,7 +324,17 @@ __canvasBehaviourStatechart = {
 				}
 				else if( name == __EVENT_LEFT_RELEASE_ICON )
 				{
-					DataUtils.getInsertConnectionType(
+					__Target = event.currentTarget.getAttribute('__csuri');
+					srcIcon = __selection.items[0];
+
+					if(__selection.items.length == 1 && (__isVisualLink(srcIcon, __Target) && !__isVisualLink(__Target, srcIcon)))
+					{
+						__removeOnLinks(srcIcon);
+						__createVisualLink( srcIcon, __Target);
+					}
+					else
+					{
+						DataUtils.getInsertConnectionType(
 							event.target,
 							undefined,
 							function(connectionType) 
@@ -340,6 +350,8 @@ __canvasBehaviourStatechart = {
 									GeometryUtils.transformSelection(__SELECTION_DRAG);
 								}
 							});
+					}
+					
 					this.__T(this.__STATE_SOMETHING_SELECTED,event);
 				}
 				
