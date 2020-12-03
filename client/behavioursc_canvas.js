@@ -460,7 +460,7 @@ __canvasBehaviourStatechart = {
 						{
 							UnderneathIcon = null;
 							DataUtils.connect(event.target);
-						}
+						}	
 						
 					this.__T(this.__STATE_IDLE,event);
 				}
