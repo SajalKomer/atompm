@@ -1365,7 +1365,9 @@ function __copyLHSiconsToRHSinRuleIcon()
 	}
 }
 
-/* 
+/**
+ * checks all link on canvas and calls toBack() on the icons connected by links and which has a edgeIn
+ */
 function __sendIconsBackOnCanvas()
 {
 	for(var item in __icons)
@@ -1385,4 +1387,4 @@ function __sendIconsBackOnCanvas()
 			__iconToBack(__icons[i].icon.node.firstElementChild);
 		}
 	}
-} */
+}

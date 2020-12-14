@@ -187,7 +187,6 @@ function __handleChangelog(changelog,seqNum,hitchhiker)
 						else
 						{
 							__createVisualLink( __Target, latestIconID[0]);	
-							//setTimeout( function(){__findSuroundingIconsAndConnect(latestIconID[0]);}, 4000);
 						}
 							
 						

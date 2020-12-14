@@ -440,6 +440,7 @@ GUIUtils = function(){
 					BehaviorManager.handleUserEvent(__EVENT_OKAYED_DIALOG);
 					callback(input); 
 				}
+				setTimeout(function(){__sendIconsBackOnCanvas()}, 50); 
 			});
 			ok.attr("id", "dialog_btn");
 			ok.html('ok');
@@ -497,7 +498,7 @@ GUIUtils = function(){
         });
 
         BehaviorManager.setActiveBehaviourStatechart(__SC_DIALOG);
-        BehaviorManager.handleUserEvent(__EVENT_SHOW_DIALOG);
+		BehaviorManager.handleUserEvent(__EVENT_SHOW_DIALOG);
 	};
 	
 	/* 
